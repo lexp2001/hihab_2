@@ -7,7 +7,7 @@ const { buildings } = require('../../routes/buildings');
 chai.use(chaiHttp);
 chai.should();
 describe("Hi:Hab Testing", () => {
-
+/*
     describe("Normalizing Address", () => {
 
         it("WHEN sends the building address EXPECT return a normalized address", 
@@ -40,7 +40,7 @@ describe("Hi:Hab Testing", () => {
                   });
          });
     });
-
+*/
     describe("Search's Filters", () => {
 
         it("WHEN address doesn't have numbers EXPECT a without number error message", 
@@ -69,11 +69,11 @@ describe("Hi:Hab Testing", () => {
                 });
         });
 
-        it("WHEN address doesn't have at least 3 words EXPECT a Too short error message", 
+        it("WHEN address doesn't have at least 2 words EXPECT a Too short error message", 
         (done) => {
 
             var send = {
-                "direccion": "es muy corta",
+                "direccion": "es corta, 234",
                 "relacion": {
                 "tipo": "Propietario",
                 "nombre": "Franz",
@@ -94,7 +94,34 @@ describe("Hi:Hab Testing", () => {
                     done();
                 });
         });
+/*
+        it("WHEN address numbers don't match with any \"no_externo\" EXPECT a "+
+           "\"Address doesn't exist\" error message", 
+        (done) => {
 
+            var send = {
+                "direccion": "Calzáda la Legaria 585",
+                "relacion": {
+                "tipo": "Propietario",
+                "nombre": "Franz",
+                "apellido": "Schubert",
+                "tlf": "+52 (23)1243-3434",
+                "email":"franzschubert@fm.com"
+                }
+            };
 
+            chai.request("http://local.hihab.epicaai.tk")
+                .post('/buildings/search')
+                .send(send)
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('object');
+                    res.body.errorMsg.should.be.
+                    equal("Address doesn't exist");
+                    done();
+                });
+        });
+
+*/
     });
 });
