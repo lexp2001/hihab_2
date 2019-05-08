@@ -34,6 +34,14 @@ var buildings = new mongoose.Schema({
     cama_row: String,
     cama_tot: String,
     fact_rent: String,
-    renta: String
+    renta: String,   
+    WIDTH: Number,
+    PREDIO_CONST: Number,
+    PREDIO_NIVE: Number,
+    PREDIO_EDAD: Number,
+    SUPERFICIE: Number,
+    NIVELES: Number,
+    AREA_LIBRE: Number,
+    PREDIO_TERR: Number
 });
 module.exports = mongoose.model('buildings', buildings, 'buildings');

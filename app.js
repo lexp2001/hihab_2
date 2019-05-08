@@ -16,7 +16,7 @@ var mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 // connect to MongoDB
 //mongoose.connect('mongodb://localhost/todoDeep?ssl=true')
-mongoose.connect("mongodb://db:27017/hihab", {useNewUrlParser: true})
+mongoose.connect("mongodb://db:27017/hi_hab", {useNewUrlParser: true})
   //.then(() =>  console.log(''))
   .catch((err) => console.error(err));
 

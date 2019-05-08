@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
 var buildings = require('../models/buildings.js');
-
+var lead = require('../queries/lead.js');
 /* GET states */
 
 router.get('/', function(req, res) {
@@ -14,7 +14,7 @@ router.get('/', function(req, res) {
 });
 
 // Search address
-router.post('/search', function(req, res, next) {
+router.post('/test', function(req, res, next) {
 
     // Initializing the response
     var resp={
@@ -27,7 +27,12 @@ router.post('/search', function(req, res, next) {
         superficie_construccion:0,
         frente_lote:0,
         errorMsg: "",
-        direccion: "",
+        direccion: {
+            alcaldia: "",
+            calle: "",
+            colonia: "",
+            numero: 0
+        },
         test: {
           direccion: "",
           addrArray: "",
@@ -111,21 +116,182 @@ router.post('/search', function(req, res, next) {
         };
         weightArray = weightArray.sort((a, b)=>b.tm - a.tm);// Order Desc by tm
         weightArray = weightArray.filter(function(elem) {
-            return elem.tm >= 2;
+            return elem.tm >= 2; // At least 2 match
         });
         resp.test.filterByNo = weightArray;
+        if ( weightArray.length > 0){
+            resp.errorMsg= "";
+            resp.encontrado = true;
+            resp.lead = true;
+            resp.direccion= {
+                alcaldia: weightArray[0].item.alcaldia,
+                calle: weightArray[0].item.calle,
+                colonia: weightArray[0].item.colonia,
+                numero: weightArray[0].item.no_externo
+            }
+        } else {
+            resp.encontrado = false;
+            resp.lead = false;
+            resp.errorMsg= "Address doesn't exist";
+        }
         res.json(resp);
     });
-   
-
-    
-    
-    
-        
-    
-    
 
 });  
+
+// Search address
+router.post('/search', function(req, res, next) {
+
+    // Initializing the response
+    var resp={
+        _id: null,
+        encontrado:true,
+        lead:false,
+        clave_catastral:"",
+        uso_suelo:"",
+        superficie_terreno:0,
+        superficie_construccion:0,
+        frente_lote:0,
+        errorMsg: "",
+        direccion: {
+            alcaldia: "",
+            calle: "",
+            colonia: "",
+            numero: 0
+        },
+        test: {
+          direccion: "",
+          addrArray: "",
+          numArray: "",
+          keyArray: ""
+        },
+        is_lead: lead
+        
+    };
+
+    let cleanSigns = (function(){
+        let de = 'ÁÃÀÄÂÉËÈÊÍÏÌÎÓÖÒÔÚÜÙÛÑÇáãàäâéëèêíïìîóöòôúüùûñç',
+             a = 'AAAAAEEEEIIIIOOOOUUUUNCaaaaaeeeeiiiioooouuuunc',
+            re = new RegExp('['+de+']' , 'ug');
+    
+        return texto =>
+            texto.replace(
+                re, 
+                match => a.charAt(de.indexOf(match))
+            );
+    })();
+
+    // Address cleaning process
+    var address = req.body.direccion.toUpperCase(); // Conver to upper case
+    address = address.replace(/,/g, " ") // Remove commas and extra spaces
+                     .replace(/\s+/g,' ')
+                     .trim();
+    address = cleanSigns (address); // Normalized address
+    var addrArray = address.split(" ");
+    var keyArray = [];
+    var numArray = [];
+
+    // Fix the array before searching
+    for (i=0; i<addrArray.length; i++) {
+        s = addrArray[i];
+        if ( !isNaN(Number(s)) ) {
+            // If s is a number
+            numArray.push(s);
+        } else {
+            if ( s.length >= 3 ) {
+                // If s is a string (s>3 eliminates the words: de, la, el)
+                keyArray.push(s);
+            }
+        }
+    };
+
+    resp.test = {};
+    /*
+    resp.test = {
+        direccion: address,
+        addrArray: addrArray,
+        numArray: numArray,
+        keyArray: keyArray,
+        filterByNo: []
+    }
+    */
+    // The address provided doesn't have a number
+    if ( numArray.length == 0) {
+        resp.found = false;
+        resp.errorMsg = "Without number";
+        res.json(resp);
+    }
+
+    // The address provided is too short 
+    if ( keyArray.length <= 1 ) {
+        resp.found = false;
+        resp.errorMsg = "Too short";
+        res.json(resp);
+    }
+
+    var weightArray = [];
+    // Filter by no_externo
+    buildings.find({no_externo: { $in : numArray } }).exec(  (err, items) => {
+        if (err) return next(err);
+        for (i of items) {
+            tm = 0; // Total matched
+            nm = 0; // Not matched
+            for (k of keyArray) {
+                i.calle.includes(k)     ? tm++ : nm++; // Match 'calle' ?
+                i.colonia.includes(k)   ? tm++ : nm++; // Match 'colonia' ?
+                i.alcaldia.includes(k)  ? tm++ : nm++; // Match 'alcaldia' ?
+            };
+            weightArray.push({tm: tm, nm: nm, item: i});
+        };
+        weightArray = weightArray.sort((a, b)=>b.tm - a.tm);// Order Desc by tm
+        weightArray = weightArray.filter(function(elem) {
+            return elem.tm >= 2; // At least 2 match
+        });
+        resp.test.filterByNo = {};
+        // resp.test.filterByNo = weightArray;
+        if ( weightArray.length > 0){
+            item = weightArray[0].item // Item found
+
+            resp.errorMsg= "";
+            resp.encontrado = true;
+            resp.lead = true;
+            resp._id = item._id;
+            resp.clave_catastral = item.cuenta_cata;
+            resp.uso_suelo = item.uso_descrip;
+            resp.superficie_terreno = item.PREDIO_TERR;
+            resp.superficie_construccion = item.SUPERFICIE;
+            resp.frente_lote = item.WIDTH;
+            resp.direccion= {
+                alcaldia: item.alcaldia,
+                calle: item.calle,
+                colonia: item.colonia,
+                numero: item.no_externo
+            }
+            // Is lead?
+            resp.lead = (
+                lead.usoDescrip.includes(item.uso_descrip) && 
+                item.WIDTH >= 7 &&
+                item.PREDIO_CONST < 60 &&
+                lead.catCaracterist.includes(item.CAT_caracterist) &&
+                item.PRED_CONDO ==""
+            ) || (
+                lead.usoDescrip.includes(item.uso_descrip) && 
+                item.WIDTH >= 7 &&
+                item.PREDIO_NIVE >= 3 &&
+                item.PREDIO_EDAD >= 50 &&
+                lead.catCaracterist.includes(item.CAT_caracterist) &&
+                item.PRED_CONDO ==""
+            );
+        } else {
+            resp.encontrado = false;
+            resp.lead = false;
+            resp.errorMsg= "Address doesn't exist";
+        }
+        res.json(resp);
+    });
+
+});  
+
 
 // Edit build
 router.post('/edit', function(req, res, next) {
