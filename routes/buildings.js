@@ -3,6 +3,65 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var buildings = require('../models/buildings.js');
 var lead = require('../queries/lead.js');
+
+// Return true if the building (item) is a lead, else return false
+var isLead = function( item ){
+    return (
+        lead.usoDescrip.includes(item.uso_descrip) && 
+        item.WIDTH >= 7 &&
+        item.PREDIO_CONST < 60 &&
+        lead.catCaracterist.includes(item.CAT_caracterist) &&
+        item.PRED_CONDO ==""
+    ) || (
+        lead.usoDescrip.includes(item.uso_descrip) && 
+        item.WIDTH >= 7 &&
+        item.PREDIO_NIVE >= 3 &&
+        item.PREDIO_EDAD >= 50 &&
+        lead.catCaracterist.includes(item.CAT_caracterist) &&
+        item.PRED_CONDO ==""
+    );
+}
+
+// Return the calculated fields
+var calculos = function ( item ) {
+
+    var width = item.WIDTH;
+    var cama_col = 0;
+
+    switch (true) {
+        case (width >= 7 && width < 8):
+            cama_col = 1;
+            break;
+        case (width >= 8 && width < 10):
+            cama_col = 1.5;
+            break;
+        case (width >= 10 && width < 15):
+            cama_col = 2.25;
+            break;
+        case (width >= 15 && width < 20):
+            cama_col = 3.25;
+            break;
+        case (width >= 20 && width < 25):
+            cama_col = 4;
+            break;
+        case (width >= 25 && width < 30):
+            cama_col = 5;
+            break;
+        case (width >= 30 && width < 35):
+            cama_col = 5.75;
+            break;
+        case (width >= 35 && width < 40):
+            cama_col = 6.75;
+            break;
+        default:
+            cama_col = 7.5
+            break;
+    }
+    return {
+        cama_col: cama_col
+    }
+}
+
 /* GET states */
 
 router.get('/', function(req, res) {
@@ -14,7 +73,7 @@ router.get('/', function(req, res) {
 });
 
 // Search address
-router.post('/test', function(req, res, next) {
+router.post('/search_dummy', function(req, res, next) {
 
     // Initializing the response
     var resp={
@@ -152,22 +211,19 @@ router.post('/search', function(req, res, next) {
         superficie_terreno:0,
         superficie_construccion:0,
         frente_lote:0,
+        pred_edad:0,
         errorMsg: "",
+        calculos:{},
         direccion: {
             alcaldia: "",
             calle: "",
             colonia: "",
             numero: 0
-        },
-        test: {
-          direccion: "",
-          addrArray: "",
-          numArray: "",
-          keyArray: ""
-        },
-        is_lead: lead
+        }
         
     };
+
+    
 
     let cleanSigns = (function(){
         let de = 'ÁÃÀÄÂÉËÈÊÍÏÌÎÓÖÒÔÚÜÙÛÑÇáãàäâéëèêíïìîóöòôúüùûñç',
@@ -205,16 +261,6 @@ router.post('/search', function(req, res, next) {
         }
     };
 
-    resp.test = {};
-    /*
-    resp.test = {
-        direccion: address,
-        addrArray: addrArray,
-        numArray: numArray,
-        keyArray: keyArray,
-        filterByNo: []
-    }
-    */
     // The address provided doesn't have a number
     if ( numArray.length == 0) {
         resp.found = false;
@@ -247,8 +293,7 @@ router.post('/search', function(req, res, next) {
         weightArray = weightArray.filter(function(elem) {
             return elem.tm >= 2; // At least 2 match
         });
-        resp.test.filterByNo = {};
-        // resp.test.filterByNo = weightArray;
+
         if ( weightArray.length > 0){
             item = weightArray[0].item // Item found
 
@@ -261,27 +306,20 @@ router.post('/search', function(req, res, next) {
             resp.superficie_terreno = item.PREDIO_TERR;
             resp.superficie_construccion = item.SUPERFICIE;
             resp.frente_lote = item.WIDTH;
+            resp.pred_edad= item.PREDIO_EDAD;
             resp.direccion= {
                 alcaldia: item.alcaldia,
                 calle: item.calle,
                 colonia: item.colonia,
                 numero: item.no_externo
-            }
+            };
+            
+
             // Is lead?
-            resp.lead = (
-                lead.usoDescrip.includes(item.uso_descrip) && 
-                item.WIDTH >= 7 &&
-                item.PREDIO_CONST < 60 &&
-                lead.catCaracterist.includes(item.CAT_caracterist) &&
-                item.PRED_CONDO ==""
-            ) || (
-                lead.usoDescrip.includes(item.uso_descrip) && 
-                item.WIDTH >= 7 &&
-                item.PREDIO_NIVE >= 3 &&
-                item.PREDIO_EDAD >= 50 &&
-                lead.catCaracterist.includes(item.CAT_caracterist) &&
-                item.PRED_CONDO ==""
-            );
+            resp.lead = isLead(item);
+
+            // Calculating Rent
+            resp.calculos = calculos( item );
         } else {
             resp.encontrado = false;
             resp.lead = false;
@@ -294,7 +332,7 @@ router.post('/search', function(req, res, next) {
 
 
 // Edit build
-router.post('/edit', function(req, res, next) {
+router.post('/edit_dummy', function(req, res, next) {
 
     var id = req.body.id;
 
@@ -333,5 +371,57 @@ router.post('/edit', function(req, res, next) {
     }
 
 });  
+
+// Edit build
+router.post('/edit', function(req, res, next) {
+
+    var id = req.body.id;
+
+    var resp={
+        _id: id,
+        encontrado:false,
+        lead: false,
+        clave_catastral:"",
+        uso_suelo:"",
+        superficie_terreno:0,
+        superficie_construccion:0,
+        frente_lote:0,
+        pred_edad:0,
+        calculos:{},
+        direccion:{}
+      };
+
+    buildings.findById(id).exec( function (err, item) {
+        if (err) return next(err);
+
+        if (item !=null) { 
+
+            resp={
+                encontrado:true,
+                clave_catastral: item.cuenta_cata,
+                lead: false,
+                uso_suelo: item.uso_descrip,
+                superficie_terreno: req.body.superficie_terreno,
+                superficie_construccion: req.body.superficie_construccion,
+                frente_lote: req.body.frente_lote,
+                pred_edad: item.PREDIO_EDAD,
+                calculos:{},
+                direccion: {
+                    alcaldia: item.alcaldia,
+                    calle: item.calle,
+                    colonia: item.colonia,
+                    numero: item.no_externo
+                }
+              }; 
+
+            // Is lead?
+            resp.lead = isLead(item);
+        };
+
+        res.json(resp);
+
+    });
+
+}); 
 
 module.exports = router;
