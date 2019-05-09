@@ -1,4 +1,6 @@
 FROM node:10
+# Install PDF Creator globaly
+RUN npm install -g html-pdf
 # Create app directory
 WORKDIR /usr/src/app
 # Install app dependencies

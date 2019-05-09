@@ -26,9 +26,14 @@ var isLead = function( item ){
 var calculos = function ( item ) {
 
     var width = item.WIDTH;
+
+    //Columnas de camas
     var cama_col = 0;
 
     switch (true) {
+        case (width < 7 ):
+            cama_col = 0;
+            break;
         case (width >= 7 && width < 8):
             cama_col = 1;
             break;
@@ -56,9 +61,27 @@ var calculos = function ( item ) {
         default:
             cama_col = 7.5
             break;
-    }
+    };
+
+    // Profundidad neta
+    var L_NETA = ( item.PREDIO_TERR * (1-item.AREA_LIBRE / 100) ) / item.WIDTH;
+
+    // Renglones de camas
+    var cama_row = Math.round( L_NETA / 3.25 );
+
+    // Camas totales
+    var cama_tot = Math.round( cama_col * cama_row );
+
+    // Renta
+    var renta = cama_tot * parseFloat(item.fact_rent) * 40;	
+
+
     return {
-        cama_col: cama_col
+        cama_col: cama_col,
+        L_NETA: L_NETA,
+        cama_row: cama_row,
+        cama_tot: cama_tot,
+        renta: renta
     }
 }
 
@@ -415,7 +438,12 @@ router.post('/edit', function(req, res, next) {
               }; 
 
             // Is lead?
+            item.frente_lote = req.body.frente_lote;
+            item.WIDTH = req.body.frente_lote;
             resp.lead = isLead(item);
+
+            // Calculating Rent
+            resp.calculos = calculos( item );
         };
 
         res.json(resp);

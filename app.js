@@ -7,6 +7,7 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var buildings = require('./routes/buildings');
+var proposal = require('./routes/proposal');
 
 // Docker environment
 // var DATABASE_URL = process.env.BACKEND_SERVER;
@@ -22,6 +23,9 @@ mongoose.connect("mongodb://db:27017/hi_hab", {useNewUrlParser: true})
 
 
 var app = express();
+
+// Set static 
+app.use(express.static('public'))
 
 //Cors
 app.use(function(req, res, next) {
@@ -58,7 +62,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/buildings', buildings)
+app.use('/buildings', buildings);
+app.use('/proposal', proposal);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
