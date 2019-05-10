@@ -3,7 +3,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'API for Master Module' });
+  res.render('index', { title: 'API for hi:hab' });
 });
 
 module.exports = router;
