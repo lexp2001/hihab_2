@@ -3,6 +3,8 @@ FROM node:10
 RUN npm install -g html-pdf
 # Create app directory
 WORKDIR /usr/src/app
+
+# VOLUME ./proposals /usr/src/app/public/proposals
 # Install app dependencies
 COPY package*.json ./
 
