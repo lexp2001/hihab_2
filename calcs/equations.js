@@ -8,7 +8,7 @@ exports.isLead = function( item, lead ){
     ) || (
         lead.usoDescrip.includes(item.uso_descrip) && 
         item.WIDTH >= 7 &&
-        item.PREDIO_NIVE >= 3 &&
+        item.PREDIO_NIVE <= 3 &&
         item.PREDIO_EDAD >= 50 &&
         lead.catCaracterist.includes(item.CAT_caracterist) &&
         item.PRED_CONDO ==""

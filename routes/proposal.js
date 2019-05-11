@@ -102,8 +102,9 @@ router.post('/', function(req, res, next) {
             "</body></html";
 
             var fileName = catastro + ".pdf"
-            var url_base = "http://local.hihab.epicaai.tk/proposals/"
+            //var url_base = "http://local.hihab.epicaai.tk/proposals/"
             //var url_base = "https://qa.api.hihab.com/proposals/"
+            var url_base = "https://prod.api.hihab.com/proposals/"
 
             pdf.create(html, options).toFile('/usr/src/app/public/proposals/' + 
                 fileName, function(err, res) {
