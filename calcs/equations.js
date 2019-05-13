@@ -18,10 +18,8 @@ exports.isLead = function( item, lead ){
 exports.calculos = function ( item ) {
 
     var width = item.WIDTH;
-
     //Columnas de camas
     var cama_col = 0;
-
     switch (true) {
         case (width < 7 ):
             cama_col = 0;
@@ -65,8 +63,8 @@ exports.calculos = function ( item ) {
     var cama_tot = Math.round( cama_col * cama_row );
 
     // Renta
-    var renta = cama_tot * parseFloat(item.fact_rent) * 40;	
-
+    var renta = cama_tot * parseFloat(item.fact_rent) * 
+                parseFloat(item.niveles) *40;	
 
     return {
         cama_col: cama_col,
