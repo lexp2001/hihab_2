@@ -105,6 +105,7 @@ router.post('/', function(req, res, next) {
                         font-size: 12px; \
                         padding: 0 10px; \
                         font-style: italic; \
+                        text-align:center; \
                     } \
                 </style>\
             </header>\
@@ -215,12 +216,61 @@ router.post('/', function(req, res, next) {
                         </div> \
                     </div></td> \
                     <td style='width:33%'> \
-                        <img src="+url_assets+"karen2.jpg"+" class='image-centered' > \
-                        <div class='client'>Karen, 26, nutrióloga en Hospital Español, Polanco</div> \
-                        <div class='review'>“Única opción para vivir cerca de mi trabajo que me alcanza”</div> \
+                        <img src="+url_assets+"laura2.jpg"+" class='image-centered' > \
+                        <div class='client'>Laura, 29, mercadóloga en Bimbo, Santa Fe</div> \
+                        <div class='review'>“Vivir en hi:hab es un upgrade tremendo comparado con mi vivienda actual” \
+                        </div> \
                     </div></td> \
                 </tr></table> \
-                " +
+                <br><br><div>Conoce nuestras ubicaciones en Polanco y a los propietarios, que como usted, decidieron \
+                contactarnos y confiar en hi:hab. </div><br> \
+                <table style='width:100%'><tr> \
+                    <td style='width:33%'> \
+                        <img src="+url_assets+"propiedad4.jpg"+" class='image-centered' > \
+                        <div class='client'>Maria Teresa, 71. Tres hijos y 6 nietos.</div> \
+                        <div class='review'>“Mantener patrimonio para sus nietos.”</div> \
+                    </div></td> \
+                    <td style='width:33%'> \
+                        <img src="+url_assets+"anzures.jpg"+" class='image-centered' > \
+                        <div class='client'>Roberto, 42. Hijo único.</div> \
+                        <div class='review'>“Administra las propiedades de sus padres.” </div> \
+                    </div></td> \
+                    <td style='width:33%'> \
+                        <img src="+url_assets+"granada2.jpg"+" class='image-centered' > \
+                        <div class='client'>Rogelio. 56. Dos hermanos.</div> \
+                        <div class='review'>“Administran propiedades que les heredaron sus padres.” \
+                        </div> \
+                    </div></td> \
+                </tr></table><br> \
+                <div class='sub-titulo'> “Escucha lo que en medios se dice de nosotros:” </div><br> \
+                <table style='width:100%'><tr> \
+                    <td style='width:33%'> \
+                        <div class='review'>“La tecnología se adueña de los bienes raíces con proptech” \
+                        <br><b>El Financiero</b></div> \
+                    </div></td> \
+                    <td style='width:33%'> \
+                        <div class='review'> “Las ‘startup que apuntalan la nueva era inmobiliaria” \
+                        <br><b>Expansion</b></div> \
+                    </div></td> \
+                    <td style='width:33%'> \
+                        <div class='review'>“Proptech, la digitalización agita el sector inmobiliario.” \
+                        <br><b>BBVA</b> \
+                        </div> \
+                    </div></td> \
+                </tr></table><br><br><br> \
+                <div style='width:100%;text-align:center;'> \
+                    <a href='https://calendly.com/hihabpropietariolote/llamada-con-hi-hab?month=' \
+                    target=\"_blank\" style='color: #000;text-decoration: none;'><span style='padding:5px 15px; \
+                    background-color:#b1b1b1;'> \
+                    Agenda una cita</span></a> \
+                </div> \
+                <div style='font-size:8px;border-top:1px solid #666;margin-top:40px;'> \
+                    Varsovia 36, Col. Juarez, Del. Cuauhtémoc, CDMX - Tel. +52(1)86196263 - email: info@hihab.com <br> \
+                    <b>Fecha de Descarga: "+d.getDate()+"/"+d.getMonth()+"/"+d.getFullYear()+
+                    " Vigencia: "+d30.getDate()+"/"+d30.getMonth()+"/"+d30.getFullYear()+" (30 días)</b> \
+                </div>"
+                 +
+                
 
             "</body></html";
 
