@@ -88,6 +88,24 @@ router.post('/', function(req, res, next) {
                         width:100%; \
                         text-align:center; \
                     } \
+                    .image-centered { \
+                        border-radius: 50%; \
+                        display: block; \
+                        margin-left: auto; \
+                        margin-right: auto; \
+                        width: 70%; \
+                    } \
+                    .client { \
+                        font-size: 10px; \
+                        font-weight: bold; \
+                        text-align: center; \
+                        padding: 10px; \
+                    } \
+                    .review { \
+                        font-size: 12px; \
+                        padding: 0 10px; \
+                        font-style: italic; \
+                    } \
                 </style>\
             </header>\
             <body style='padding:30px 50px;font-size:12px;font-weight: 400;color:#333;line-height:18px; \
@@ -156,19 +174,55 @@ router.post('/', function(req, res, next) {
                     Varsovia 36, Col. Juarez, Del. Cuauhtémoc, CDMX - Tel. +52(1)86196263 - email: info@hihab.com <br> \
                     <b>Fecha de Descarga: "+d.getDate()+"/"+d.getMonth()+"/"+d.getFullYear()+
                     " Vigencia: "+d30.getDate()+"/"+d30.getMonth()+"/"+d30.getFullYear()+" (30 días)</b> \
-                </div><br> \
+                </div>\
                 <div style ='text-align:center;width:100%;border-bottom:1px solid #666;page-break-before: always;'> \
                     <img width='150px;' src="+url_assets+"logohihab.png"+" style='margin-top:30px;margin-bottom:20px'>\
                 </div><br>" +
 
 
                 "<div style='font-size:24px;width:100%;text-align:center;line-height:28px;'> \
-                    <strong><span class='titulo'>¿Quién es Hi:Hab?</span></strong></div><br> \
-                    <div class= 'sub-titulo'>Una empresa de tecnología en el sector inmobiliario que diseña, produce \
-                        y opera comunidades habitacionales en renta.<br><br> \
-                        “Comunidades diseñadas a la medida del mercado de hoy”. \
-                    </div> \
-            </body></html";
+                    <strong><span class='titulo'>¿Quién es Hi:Hab?</span></strong> \
+                </div><br> \
+                <div class= 'sub-titulo'>Una empresa de tecnología en el sector inmobiliario que diseña, produce \
+                    y opera comunidades habitacionales en renta.<br><br> \
+                    “Comunidades diseñadas a la medida del mercado de hoy”. \
+                </div> \
+                <img width='100%;' src="+url_assets+"Pod2.1.jpg"+" style='margin-top:30px;margin-bottom:0px'> \
+                <img height='140px;' src="+url_assets+"common.jpg"+" style='margin-top:5px;margin-bottom:20px'> \
+                <img height='140px;' src="+url_assets+"services2.jpg"+" style='margin-top:5px;margin-bottom:20px'> \
+                Atendemos al jóven profesionista que labora en los corporativos de CDMX. Desean vivir a una distancia \
+                caminable de su oficina, por un precio inteligente y en un hogar de altísima calidad. \
+                En la Ciudad de México ya son más de <b><i>2,000</i></b> que han solicitado su Comunidad Hi:Hab. \
+                <div style='font-size:8px;border-top:1px solid #666;margin-top:80px;'> \
+                    Varsovia 36, Col. Juarez, Del. Cuauhtémoc, CDMX - Tel. +52(1)86196263 - email: info@hihab.com <br> \
+                    <b>Fecha de Descarga: "+d.getDate()+"/"+d.getMonth()+"/"+d.getFullYear()+
+                    " Vigencia: "+d30.getDate()+"/"+d30.getMonth()+"/"+d30.getFullYear()+" (30 días)</b> \
+                </div> "+
+
+                "<div style ='text-align:center;width:100%;border-bottom:1px solid #666;page-break-before: always;'> \
+                    <img width='150px;' src="+url_assets+"logohihab.png"+" style='margin-top:30px;margin-bottom:20px'>\
+                </div><br> \
+                <table style='width:100%'><tr> \
+                    <td style='width:33%'> \
+                        <img src="+url_assets+"karen2.jpg"+" class='image-centered' > \
+                        <div class='client'>Karen, 26, nutrióloga en Hospital Español, Polanco</div> \
+                        <div class='review'>“Única opción para vivir cerca de mi trabajo que me alcanza”</div> \
+                    </div></td> \
+                    <td style='width:33%'> \
+                        <img src="+url_assets+"ricardo2.jpg"+" class='image-centered' > \
+                        <div class='client'>Ricardo, 30, financiero en Bancomer, Reforma</div> \
+                        <div class='review'>“hi:hab ofrece un precio, ubicación, conveniencia y diseño que no existían” \
+                        </div> \
+                    </div></td> \
+                    <td style='width:33%'> \
+                        <img src="+url_assets+"karen2.jpg"+" class='image-centered' > \
+                        <div class='client'>Karen, 26, nutrióloga en Hospital Español, Polanco</div> \
+                        <div class='review'>“Única opción para vivir cerca de mi trabajo que me alcanza”</div> \
+                    </div></td> \
+                </tr></table> \
+                " +
+
+            "</body></html";
 
             
 
