@@ -43,6 +43,10 @@ router.post('/search', function(req, res, next) {
         
     };
 
+    // Finding the street
+    var streetX = tools.cleanSigns ( req.body.direccion.split(",")[0] );
+    var streetXArray = streetX.split(" ");
+
     var address = tools.cleanSigns ( req.body.direccion ); // Normalized address
     var addrArray = address.split(" ");
     var keyArray = [];
@@ -55,10 +59,8 @@ router.post('/search', function(req, res, next) {
             // If s is a number
             numArray.push(s);
         } else {
-            if ( s.length >= 3 ) {
-                // If s is a string (s>3 eliminates the words: de, la, el)
-                keyArray.push(s);
-            }
+            // If s is a string (s>3 eliminates the words: de, la, el)
+            keyArray.push(s);
         }
     };
 
@@ -88,6 +90,12 @@ router.post('/search', function(req, res, next) {
                 i.colonia.includes(k)   ? tm++ : nm++; // Match 'colonia' ?
                 i.alcaldia.includes(k)  ? tm++ : nm++; // Match 'alcaldia' ?
             };
+
+            // Provides more weight to the street
+            for (k of streetXArray) {
+                i.calle.includes(k)     ? tm+=20 : nm++; // Match 'calle'
+            };
+
             weightArray.push({tm: tm, nm: nm, item: i});
         };
         weightArray = weightArray.sort((a, b)=>b.tm - a.tm);// Order Desc by tm
@@ -105,14 +113,17 @@ router.post('/search', function(req, res, next) {
             resp.clave_catastral = item.cuenta_cata;
             resp.uso_suelo = item.uso_descrip;
             resp.superficie_terreno = item.PREDIO_TERR;
-            resp.superficie_construccion = item.SUPERFICIE;
+            resp.superficie_construccion = item.PREDIO_CONST;
             resp.frente_lote = item.WIDTH;
             resp.pred_edad= item.PREDIO_EDAD;
             resp.direccion= {
                 alcaldia: item.alcaldia,
                 calle: item.calle,
                 colonia: item.colonia,
-                numero: item.no_externo
+                numero: item.no_externo,
+                keyArray: keyArray,
+                streetXArray: streetXArray,
+                test: weightArray
             };
 
             // Is lead?

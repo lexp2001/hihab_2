@@ -57,7 +57,7 @@ exports.calculos = function ( item ) {
     var L_NETA = ( item.PREDIO_TERR * (1-item.AREA_LIBRE / 100) ) / item.WIDTH;
 
     // Renglones de camas
-    var cama_row = Math.round( L_NETA / 3.25 );
+    var cama_row = Math.floor( L_NETA / 3.25 );
 
     // Camas totales
     var cama_tot = Math.round( cama_col * cama_row );
