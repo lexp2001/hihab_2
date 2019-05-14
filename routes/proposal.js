@@ -88,7 +88,7 @@ router.post('/', function(req, res, next) {
                     body, html { \
                         padding: 0; \
                         margin: 0; \
-                        font-size:12px; \
+                        font-size:11px; \
                         font-weight: 400; \
                         color:#333; \
                         line-height:18px; \
@@ -107,12 +107,12 @@ router.post('/', function(req, res, next) {
                     } \
                     .titulo { \
                         font-weigh:900; \
-                        font-size:24px; \
+                        font-size:18px; \
                         text-align:center; \
-                        line-height:28px; \
+                        line-height:20px; \
                         font-family:playfair display,georgia,times new roman; \
                         color:black; \
-                        margin-bottom: 5px; \
+                        margin-bottom: 10px; \
                     } \
                     .sub-titulo { \
                         font-size:14px; \
@@ -154,14 +154,21 @@ router.post('/', function(req, res, next) {
                         padding-top:10px; \
                         text-align:center;'\
                     } \
+                    boton { \
+                        background-color: #bf360c; \
+                        color: #fff; \
+                        text-decoration: none; \
+                        padding:5px 15px; \
+                    } \
                 </style>\
             </header>\
-            <body> \
-                <div class='logo'><img src="+url_assets+"logohihab.png></div> \
+            <body>" +
+
+// Pág 1
+            " <div class='logo'><img src="+url_assets+"logohihab.png></div> \
                 <div class='titulo'>Oferta de renta no vinculante para arrendamiento de inmueble</div> \
                 <div class= 'sub-titulo'> \
-                    PARA "+calle+",<span style='font-size:18;'> "+no_externo+" </span> \
-                    POR UN MONTO DE $<span style='font-size:18;'>"+renta+".00</span> / MENSUAL</div> \
+                    PARA "+calle+", "+no_externo+" POR UN MONTO DE $"+renta+".00 MENSUAL</div> \
                 <br> \
                 <span >Estimado(a) <b><i>"+name+"</i></b>,</span><br><br>\
                 Es nuestro placer ofrecerle un contrato de arrendamiento por el inmueble ubicado en: \
@@ -197,12 +204,14 @@ router.post('/', function(req, res, next) {
                 red de ubicaciones en la Ciudad de México. Deseamos que usted y su familia se sumen y gocen de \
                 inmediato los beneficios que le ofrece <b><i>hi:hab</i></b>.<br><br> \
                 Quedamos a sus órdenes para presentar el contrato de arrendamiento vía  llamada telefónica  ó en \
-                persona. Desde nuestra página usted puede agendar una cita de 20 min. con nuestro especialista.<br> \
-                <br><div style='width:100%;text-align:center;'> \
-                <a href='https://calendly.com/hihabpropietariolote/llamada-con-hi-hab?month=' \
-                target=\"_blank\" style='color: #000;text-decoration: none;'><span style='padding:5px 15px; \
-                background-color:#b1b1b1;'> \
-                Agenda una cita</span></a></div><br> \
+                persona. Desde nuestra página usted puede agendar una cita de 20 min. con nuestro especialista. \
+                <br><br><br>\
+                <div style='width:100%;text-align:center;'> \
+                    <a style='background-color: #bf360c;color: #fff;text-decoration: none;padding:10px 15px;' \
+                        href='https://calendly.com/hihabpropietariolote/llamada-con-hi-hab?month='target='_blank' > \
+                        <b>Agenda una cita</b> \
+                    </a> \
+                </div><br> \
                 Reciba un cordial saludo, <br><br> \
                 <table style='width:100%'><tr> \
                 <td style='text-align:center;font-size:10px;'><img width='100px' height='60px' src="+url_assets+
@@ -215,7 +224,7 @@ router.post('/', function(req, res, next) {
                     <br>Hugo A. Medina Rivera \
                     <br>Director de Expansión \
                 </td> \
-                </tr></table><br> \
+                </tr></table><br><br> \
                 <div class = 'footer'> \
                     Varsovia 36, Col. Juarez, Del. Cuauhtémoc, CDMX - Tel. +52(1)86196263 - email: info@hihab.com <br> \
                     <b>Fecha de Descarga: "+d.getDate()+"/"+d.getMonth()+"/"+d.getFullYear()+
@@ -226,7 +235,7 @@ router.post('/', function(req, res, next) {
                     <b>hi:hab</b> y el legítimo propietario del Inmueble deberán de celebrar los convenios de \
                     arrendamiento correspondientes para formalizar las obligaciones que asumirán las partes.</span> \
                 </div>" +
-
+// Pág 2
                 "<div class='logo' style='page-break-before: always;'><img src="+url_assets+"logohihab.png></div> \
                 <div class='titulo'> hi:hab es una empresa de tecnología en el sector inmobiliario. </div> \
                 <div>Diseña, produce y opera comunidades habitacionales en renta, utilizando un sistema constructivo \
@@ -236,22 +245,8 @@ router.post('/', function(req, res, next) {
                 una distancia caminable de su oficina, por un precio inteligente y en un hogar de altísima calidad. \
                 En la Ciudad de México ya son más de <b><i>2,000</i></b> que han solicitado su Comunidad \
                 <b><i>hi:hab</b></i>.<br> \
-                <img width='100%' src='"+url_assets+"colage.jpg'"+" style='margin-top:10px;margin-bottom:10px'> \
-                Atendemos al jóven profesionista que labora en los corporativos de CDMX. Desean vivir a una distancia \
-                caminable de su oficina, por un precio inteligente y en un hogar de altísima calidad. \
-                En la Ciudad de México ya son más de <b><i>2,000</i></b> que han solicitado su Comunidad hi:hab. \
-                <div class = 'footer'> \
-                    Varsovia 36, Col. Juarez, Del. Cuauhtémoc, CDMX - Tel. +52(1)86196263 - email: info@hihab.com <br> \
-                    <b>Fecha de Descarga: "+d.getDate()+"/"+d.getMonth()+"/"+d.getFullYear()+
-                    " Vigencia: "+d30.getDate()+"/"+d30.getMonth()+"/"+d30.getFullYear()+" (30 días)</b> \
-                    <br><span style='font-size:6px;margin-top:5px;'>La oferta contenida en el presente documento no es \
-                    vinculante para Tecnologías en Urbanismo Metropolitano, S.A. de C.V. <b>hi:hab</b> ni para \
-                    cualquiera de sus subsidiarias, filiales, directores o empleados, por lo que en todo caso \
-                    <b>hi:hab</b> y el legítimo propietario del Inmueble deberán de celebrar los convenios de \
-                    arrendamiento correspondientes para formalizar las obligaciones que asumirán las partes.</span> \
-                </div>" +
-
-                "<div class='logo' style='page-break-before: always;'><img src="+url_assets+"logohihab.png></div> \
+                <img width='100%' src='"+url_assets+"colage.jpg'"+" style='margin-top:20px;margin-bottom:30px'> \
+                <div class= 'sub-titulo2'>Conoce a nuestros inquilinos</div> \
                 <table style='width:100%'><tr> \
                     <td style='width:33%'> \
                         <img src="+url_assets+"karen2.jpg"+" class='image-centered' > \
@@ -271,7 +266,15 @@ router.post('/', function(req, res, next) {
                         </div> \
                     </div></td> \
                 </tr></table> \
-                <br><br><div>Conoce nuestras ubicaciones en Polanco y a los propietarios, que como usted, decidieron \
+                <br><br> \
+                <div class = 'footer'> \
+                    Varsovia 36, Col. Juarez, Del. Cuauhtémoc, CDMX - Tel. +52(1)86196263 - email: info@hihab.com <br> \
+                    <b>Fecha de Descarga: "+d.getDate()+"/"+d.getMonth()+"/"+d.getFullYear()+
+                    " Vigencia: "+d30.getDate()+"/"+d30.getMonth()+"/"+d30.getFullYear()+" (30 días)</b> \
+                </div>" +
+// Pág 3
+                "<div class='logo' style='page-break-before: always;'><img src="+url_assets+"logohihab.png></div> \
+                <div>Conoce nuestras ubicaciones en Polanco y a los propietarios, que como usted, decidieron \
                 contactarnos y confiar en hi:hab. </div><br> \
                 <table style='width:100%'><tr> \
                     <td style='width:33%'> \
@@ -308,11 +311,11 @@ router.post('/', function(req, res, next) {
                     </div></td> \
                 </tr></table><br><br><br> \
                 <div style='width:100%;text-align:center;'> \
-                    <a href='https://calendly.com/hihabpropietariolote/llamada-con-hi-hab?month=' \
-                    target=\"_blank\" style='color: #000;text-decoration: none;'><span style='padding:5px 15px; \
-                    background-color:#b1b1b1;'> \
-                    Agenda una cita</span></a> \
-                </div> \
+                    <a style='background-color: #bf360c;color: #fff;text-decoration: none;padding:10px 15px;' \
+                        href='https://calendly.com/hihabpropietariolote/llamada-con-hi-hab?month='target='_blank' > \
+                        <b>Agenda una cita</b> \
+                    </a> \
+                </div><br> \
                 <div class = 'footer'> \
                     Varsovia 36, Col. Juarez, Del. Cuauhtémoc, CDMX - Tel. +52(1)86196263 - email: info@hihab.com <br> \
                     <b>Fecha de Descarga: "+d.getDate()+"/"+d.getMonth()+"/"+d.getFullYear()+
