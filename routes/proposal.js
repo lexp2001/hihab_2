@@ -71,10 +71,7 @@ router.post('/', function(req, res, next) {
             d30.setDate(d.getDate()+30);
             var clientes = ((d.getMonth() +1) * 6) + (d.getFullYear() - 2019) * 6 * 12 - 19 ;
             var fileName = catastro + ".pdf";
-            //fileName = "pag1.pdf";
-            //var url_base = "http://local.hihab.epicaai.tk/proposals/";
-            //var url_assets = "http://local.hihab.epicaai.tk/assets/"
-            //var url_base = "https://qa.api.hihab.com/proposals/"
+
             var url_base = "https://prod.api.hihab.com/proposals/"
             var url_assets = "https://prod.api.hihab.com/assets/"
 
@@ -100,6 +97,7 @@ router.post('/', function(req, res, next) {
                         border-bottom:1px solid #666; \
                         padding:0; \
                         margin:10px; \
+                        margin-left:-20px; \
                     } \
                     .logo img { \
                         width: 150px; \
@@ -179,13 +177,15 @@ router.post('/', function(req, res, next) {
 
 // Pág 1
             " <div class='logo'><img src="+url_assets+"logohihab.png></div> \
-                <div class='titulo'>Oferta de renta no vinculante para arrendamiento de inmueble</div> \
+                <div class='titulo'><b>Oferta no vinculante para arrendamiento de inmueble</b></div> \
                 <div class= 'sub-titulo'> \
-                    PARA "+calle+", "+no_externo+" POR UN MONTO DE $"+renta+".00 MENSUAL</div> \
+                    PARA "+calle+", "+no_externo+" POR UN MONTO DE <span style='font-size:16px;'><b> $"+renta+".00 </b>\
+                    </span>MENSUAL</div> \
                 <br> \
                 <span >Estimado(a) <b><i>"+name+"</i></b>,</span><br><br>\
                 Es nuestro placer ofrecerle un contrato de arrendamiento por el inmueble ubicado en: \
-                <b><i>"+direccion+"</i></b>. Nuestra propuesta de arrendamiento es la siguiente:<br> <br>\
+                <b><i>"+direccion+"</i></b>.<br><br> \
+                Nuestra propuesta de arrendamiento es la siguiente:<br> <br>\
                 <ul style='list-style-type: none;padding: 0;margin: 0;'> \
                     <li style='background: url("+url_assets+"checked.svg) no-repeat left top; \
                                 padding-left: 24px;padding-top: -8px;background-size:16px;'>\
@@ -204,13 +204,9 @@ router.post('/', function(req, res, next) {
                                padding-left: 24px;padding-top: -8px;background-size:16px;'>\
                         1 mes de depósito en firma de contrato de arrendamiento. \
                     </li> \
-                    <li style='background: url("+url_assets+"checked.svg) no-repeat left top; \
-                               padding-left: 24px;padding-top: -8px;background-size:16px;'>\
-                        1 mes adelantado en entrega de posesión de inmueble. \
-                    </li> \
                 </ul> \
                 <br>La actividad que se llevará a cabo en dicho lote será el montaje de una \
-                <b><i>Comunidad hi:hab</i></b> en la modalidad casa-habitación. \
+                <i><strong>Comunidad hi:hab</strong></i> en la modalidad casa-habitación. \
                 Rentamos habitaciones privadas a jóvenes profesionistas que laboran en los corporativos \
                 ubicados en ese mismo barrio.<br><br> \
                 Ya son <b><i>"+clientes+"</i></b> dueños de lotes/casas como usted que se han sumado a nuestra \
@@ -250,17 +246,19 @@ router.post('/', function(req, res, next) {
                 </div>" +
 // Pág 2
                 "<div class='logo' style='page-break-before: always;'><img src="+url_assets+"logohihab.png></div> \
-                <div class='titulo'> hi:hab es una empresa de tecnología en el sector inmobiliario. </div> \
-                <div>Diseña, produce y opera comunidades habitacionales en renta, utilizando un sistema constructivo \
-                prefabricado, modular y montable/desmontable en 120 días. </div> \
-                <div class= 'sub-titulo2'>Comunidades diseñadas a la medida del <br> mercado de hoy. </div> \
+                <div class='titulo' style='text-align:left;' ><b>hi:hab es una empresa de tecnología en el sector \
+                inmobiliario</b></div> \
+                <div><b><i>hi:hab</i></b> diseña, produce y opera comunidades habitacionales en renta, utilizando un \
+                sistema constructivo prefabricado, modular y montable/desmontable en 120 días. </div><br><br> \
+                <div style='font-size:14px;text-align:left'><b>Comunidades diseñadas por y para el mercado de hoy</b> \
+                <br><br></div> \
                 Atendemos al jóven profesionista solter@ que labora en los corporativos de CDMX. Desea vivir a \
                 una distancia caminable de su oficina, por un precio inteligente y en un hogar de altísima calidad. \
                 En la Ciudad de México ya son más de <b><i>2,000</i></b> que han solicitado su Comunidad \
                 <b><i>hi:hab</b></i>.<br> \
-                <img width='100%' src='"+url_assets+"colage.jpg'"+" style='margin-top:20px;margin-bottom:30px'> \
-                <div class= 'sub-titulo2'>Conoce a nuestros inquilinos</div> \
-                <table style='width:100%'><tr> \
+                <img width='100%' src='"+url_assets+"colage.jpg'"+" style='margin-top:20px;margin-bottom:30px'><br> \
+                <div style='font-size:14px;text-align:left'><b>Conoce a nuestros inquilinos</b></div><br> \
+                <table style='width:100%'><tr style='vertical-align:top;'> \
                     <td style='width:33%'> \
                         <img src="+url_assets+"karen2.jpg"+" class='image-centered' > \
                         <div class='client'>Karen, 26, nutrióloga en Hospital Español, Polanco</div> \
@@ -268,13 +266,13 @@ router.post('/', function(req, res, next) {
                     </div></td> \
                     <td style='width:33%'> \
                         <img src="+url_assets+"ricardo2.jpg"+" class='image-centered' > \
-                        <div class='client'>Ricardo, 30, financiero en Bancomer, Reforma</div> \
+                        <div class='client' style='margin-bottom:12px;'>Ricardo, 30, financiero en Bancomer, Reforma</div> \
                         <div class='review'>“hi:hab ofrece un precio, ubicación, conveniencia y diseño que no existían” \
                         </div> \
                     </div></td> \
                     <td style='width:33%'> \
                         <img src="+url_assets+"laura2.jpg"+" class='image-centered' > \
-                        <div class='client'>Laura, 29, mercadóloga en Bimbo, Santa Fe</div> \
+                        <div class='client' style='margin-bottom:12px;'>Laura, 29, mercadóloga en Coca cola Polanco</div> \
                         <div class='review'>“Vivir en hi:hab es un upgrade tremendo comparado con mi vivienda actual” \
                         </div> \
                     </div></td> \
@@ -287,8 +285,9 @@ router.post('/', function(req, res, next) {
                 </div>" +
 // Pág 3
                 "<div class='logo' style='page-break-before: always;'><img src="+url_assets+"logohihab.png></div> \
-                <br><div class='titulo'>Conoce nuestras ubicaciones</div> \
-                <div class='sub-titulo'>Contamos con tres comunidades en desarrollo</div><br> \
+                <br><div class='titulo'><b>Conoce nuestras ubicaciones</b></div> \
+                <div style='font-size:14px;text-align:left'><b>Contamos con tres comunidades en desarrollo</b> \
+                <br><br></div> \
                 <table style='width:100%'><tr style='vertical-align:top;'> \
                     <td style='width:33%'> \
                         <img src="+url_assets+"moliere.jpg"+" class='image-centered' style='height:113px;'> \
@@ -306,12 +305,13 @@ router.post('/', function(req, res, next) {
                     <td style='width:33%'> \
                         <img src="+url_assets+"granada2.jpg"+" class='image-centered' > \
                         <div class='colonia'>Col. Granada</div> \
-                        <div class='client'>Rogelio. 56. Albacea.</div> \
+                        <div class='client' style='margin-bottom:12px;'>Rogelio. 56. Albacea.</div> \
                         <div class='review'>“Nos ayudó a lograr nuestros planes patrimoniales y de sucesión.” \
                         </div> \
                     </div></td> \
-                </tr></table><br> \
-                <div class='sub-titulo'><br> “Escucha lo que en medios se dice de nosotros:” </div><br> \
+                </tr></table><br><br> \
+                <div style='font-size:14px;text-align:left'><b>“Escucha lo que en medios se dice de nosotros:”</b> \
+                <br><br></div> \
                 <table style='width:100%'><tr> \
                     <td style='width:33%; text-align:center'> \
                         <div class='review'>“La tecnología se adueña de los bienes raíces con proptech”<br><br> \
@@ -319,17 +319,18 @@ router.post('/', function(req, res, next) {
                     </div></td> \
                     <td style='width:33%; text-align:center'> \
                         <div class='review'>“Las ‘startup que apuntalan la nueva era inmobiliaria”<br><br>  \
-                        <img style='width:130px;' src='"+url_assets+"logo_bbva2.png' class='logos' > \
+                        <img style='width:130px;' src='"+url_assets+"logo_cnn.png' class='logos' > \
                     </div></td> \
                     <td style='width:33%; text-align:center'> \
                         <div class='review'>“Proptech, la digitalización agita el sector inmobiliario.”<br><br> \
-                        <img style='width:130px;' src='"+url_assets+"logo_cnn.png' class='logos' > \
+                        <img style='width:130px;' src='"+url_assets+"logo_bbva2.png' class='logos' > \
                         </div> \
                     </div></td> \
                 </tr></table><br><br> \
-                <div class='sub-titulo'><br> Suma tu lote/casa a nuestra red de ubicaciones hoy mismo. </div><br> \
+                <div style='font-size:14px;text-align:left'><b>Suma tu lote/casa a nuestra red de ubicaciones hoy mismo \
+                </b><br><br></div> \
+                <div>Agenda una llamada telefónica o cita en persona con nuestro especialista. <div><br><br> \
                 <div style='width:100%;text-align:center;'> \
-                    <div>Agenda una llamada telefónica o cita en persona con nuestro especialista. <div><br><br> \
                     <a style='background-color: #bf360c;color: #fff;text-decoration: none;padding:10px 15px;' \
                         href='https://calendly.com/hihabpropietariolote/llamada-con-hi-hab?month='target='_blank' > \
                         <b>Agenda una cita</b> \
