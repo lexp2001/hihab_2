@@ -1,15 +1,50 @@
 # hi:hab 2da Fase
+## Tecnología Usada
+- NodeJs
+- ExpressJs
+- Nginx
+- Docker
+- Docker-compose
+- MongoDB
+- Html/css
 ### Cómo actualizar el código:
 - Entrar en VS Code con las credenciales suministradas.
-- Ubicar yeditar el archivo en el directorio: /home/hihab/api/app
-### Descripción Archivos editables:
-- ../app/calcs: Es el directorio que contiene los archivos que definen las funciones que determinan si una propiedad "califica" y las encargadas de calcular la renta.
-- ../app/models/buildings.js: Archivo de parametrización de la base de datos MongoDB
-- ../app/public/assets: Directorio con todos los recursos gráficos para el HTML/PDF
-- ../app/routes/buildings.js: Implementa los métodos del API para la búsqueda de propiedades y los respectivos cálculos de renta
-- ../app/routes/proposal.js: Implementa el métodp del API para crear el PDF de la propuesta
+- Ubicar y editar el archivo en el directorio base: /home/hihab/api/app
+### Descripción Archivos editables (todos en el directorio base):
+- **calcs**: Es el directorio que contiene los archivos que definen las funciones que determinan si una propiedad "califica" y las encargadas de calcular la renta.
+- **models/buildings.js**: Archivo de parametrización de la base de datos MongoDB
+- **public/assets**: Directorio con todos los recursos gráficos para el HTML/PDF
+- **routes/buildings.js**: Implementa los métodos del API para la búsqueda de propiedades y los respectivos cálculos de renta
+- **routes/proposal.js**: Implementa el métodp del API para crear el PDF de la propuesta
+### Actualizar Entorno de tests QA:
+```
+docker-compose up -d --build express_qa
+```
+### Actualizar Entorno de Producción:
+```
+docker-compose up -d --build express_prod
+```
+### Subir una imagen QA de docker actualizada al repositório Docker Hub:
+```
+docker tag api_express_qa hihab/api_express_qa
+docker push hihab/api_express_qa:[version] (*)
+(*) version: colocar una versión para el control de actualizaciones, puede ser un número, letra o combinación de ellas.
 
-## Configuración de Docker Compose:
+```
+### Subir una imagen PROD de docker actualizada al repositório Docker Hub:
+```
+docker tag api_express_prod hihab/api_express_prod
+docker push hihab/api_express_prod:[version] (*)
+(*) version: colocar una versión para el control de actualizaciones, puede ser un número, letra o combinación de ellas.
+
+```
+### Actualizar repositório Github:
+```
+git add .
+git commit -m "Comentário relevante de la actualización"
+git push
+```
+### Configuración de Docker Compose:
 ```
 #docker-compose.yml
 version: '3.5'
