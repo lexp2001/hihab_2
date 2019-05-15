@@ -141,8 +141,14 @@ router.post('/', function(req, res, next) {
                         text-align: center; \
                         padding: 10px; \
                     } \
+                    .colonia { \
+                        font-size: 11px; \
+                        font-weight: bold; \
+                        text-align: center; \
+                        margin-top:10px; \
+                    } \
                     .review { \
-                        font-size: 12px; \
+                        font-size: 11px; \
                         padding: 0 10px; \
                         font-style: italic; \
                         text-align:center; \
@@ -154,11 +160,18 @@ router.post('/', function(req, res, next) {
                         padding-top:10px; \
                         text-align:center;'\
                     } \
-                    boton { \
+                    .boton { \
                         background-color: #bf360c; \
                         color: #fff; \
                         text-decoration: none; \
                         padding:5px 15px; \
+                    } \
+                    .logos { \
+                        display: block; \
+                        margin-left: auto; \
+                        margin-right: auto; \
+                        width: 120px; \
+                        max-width: 120px; \
                     } \
                 </style>\
             </header>\
@@ -274,58 +287,59 @@ router.post('/', function(req, res, next) {
                 </div>" +
 // Pág 3
                 "<div class='logo' style='page-break-before: always;'><img src="+url_assets+"logohihab.png></div> \
-                <div>Conoce nuestras ubicaciones en Polanco y a los propietarios, que como usted, decidieron \
-                contactarnos y confiar en hi:hab. </div><br> \
-                <table style='width:100%'><tr> \
+                <br><div class='titulo'>Conoce nuestras ubicaciones</div> \
+                <div class='sub-titulo'>Contamos con tres comunidades en desarrollo</div><br> \
+                <table style='width:100%'><tr style='vertical-align:top;'> \
                     <td style='width:33%'> \
-                        <img src="+url_assets+"propiedad4.jpg"+" class='image-centered' > \
+                        <img src="+url_assets+"moliere.jpg"+" class='image-centered' style='height:113px;'> \
+                        <div class='colonia'>Col. Polanco Sección II</div> \
                         <div class='client'>Maria Teresa, 71. Tres hijos y 6 nietos.</div> \
-                        <div class='review'>“Mantener patrimonio para sus nietos.”</div> \
+                        <div class='review'>“La mejora en ingresos mensuales fue importante, y permitió conservar el \
+                        patrimonio.”</div> \
                     </div></td> \
                     <td style='width:33%'> \
                         <img src="+url_assets+"anzures.jpg"+" class='image-centered' > \
-                        <div class='client'>Roberto, 42. Hijo único.</div> \
-                        <div class='review'>“Administra las propiedades de sus padres.” </div> \
+                        <div class='colonia'>Col. Anzures</div> \
+                        <div class='client'>Roberto, 42. Tres hermanos.</div> \
+                        <div class='review'>“Buscamos un mejor negocio de renta y de largo plazo.”</div> \
                     </div></td> \
                     <td style='width:33%'> \
                         <img src="+url_assets+"granada2.jpg"+" class='image-centered' > \
-                        <div class='client'>Rogelio. 56. Dos hermanos.</div> \
-                        <div class='review'>“Administran propiedades que les heredaron sus padres.” \
+                        <div class='colonia'>Col. Granada</div> \
+                        <div class='client'>Rogelio. 56. Albacea.</div> \
+                        <div class='review'>“Nos ayudó a lograr nuestros planes patrimoniales y de sucesión.” \
                         </div> \
                     </div></td> \
                 </tr></table><br> \
-                <div class='sub-titulo'> “Escucha lo que en medios se dice de nosotros:” </div><br> \
+                <div class='sub-titulo'><br> “Escucha lo que en medios se dice de nosotros:” </div><br> \
                 <table style='width:100%'><tr> \
-                    <td style='width:33%'> \
-                        <div class='review'>“La tecnología se adueña de los bienes raíces con proptech” \
-                        <br><b>El Financiero</b></div> \
+                    <td style='width:33%; text-align:center'> \
+                        <div class='review'>“La tecnología se adueña de los bienes raíces con proptech”<br><br> \
+                        <img style='width:130px;' src='"+url_assets+"logo_fin.png' > \
                     </div></td> \
-                    <td style='width:33%'> \
-                        <div class='review'> “Las ‘startup que apuntalan la nueva era inmobiliaria” \
-                        <br><b>Expansion</b></div> \
+                    <td style='width:33%; text-align:center'> \
+                        <div class='review'>“Las ‘startup que apuntalan la nueva era inmobiliaria”<br><br>  \
+                        <img style='width:130px;' src='"+url_assets+"logo_bbva2.png' class='logos' > \
                     </div></td> \
-                    <td style='width:33%'> \
-                        <div class='review'>“Proptech, la digitalización agita el sector inmobiliario.” \
-                        <br><b>BBVA</b> \
+                    <td style='width:33%; text-align:center'> \
+                        <div class='review'>“Proptech, la digitalización agita el sector inmobiliario.”<br><br> \
+                        <img style='width:130px;' src='"+url_assets+"logo_cnn.png' class='logos' > \
                         </div> \
                     </div></td> \
-                </tr></table><br><br><br> \
+                </tr></table><br><br> \
+                <div class='sub-titulo'><br> Suma tu lote/casa a nuestra red de ubicaciones hoy mismo. </div><br> \
                 <div style='width:100%;text-align:center;'> \
+                    <div>Agenda una llamada telefónica o cita en persona con nuestro especialista. <div><br><br> \
                     <a style='background-color: #bf360c;color: #fff;text-decoration: none;padding:10px 15px;' \
                         href='https://calendly.com/hihabpropietariolote/llamada-con-hi-hab?month='target='_blank' > \
                         <b>Agenda una cita</b> \
                     </a> \
                 </div><br> \
-                <div class = 'footer'> \
+                <div class = 'footer' style='margin-top:160px;'> \
                     Varsovia 36, Col. Juarez, Del. Cuauhtémoc, CDMX - Tel. +52(1)86196263 - email: info@hihab.com <br> \
                     <b>Fecha de Descarga: "+d.getDate()+"/"+d.getMonth()+"/"+d.getFullYear()+
-                    " Vigencia: "+d30.getDate()+"/"+d30.getMonth()+"/"+d30.getFullYear()+" (30 días)</b> \
-                    <br><span style='font-size:6px;margin-top:5px;'>La oferta contenida en el presente documento no es \
-                    vinculante para Tecnologías en Urbanismo Metropolitano, S.A. de C.V. <b>hi:hab</b> ni para \
-                    cualquiera de sus subsidiarias, filiales, directores o empleados, por lo que en todo caso \
-                    <b>hi:hab</b> y el legítimo propietario del Inmueble deberán de celebrar los convenios de \
-                    arrendamiento correspondientes para formalizar las obligaciones que asumirán las partes.</span> \
-                </div>" +
+                    " Vigencia: "+d30.getDate()+"/"+d30.getMonth()+"/"+d30.getFullYear()+" (30 días)" +
+                    
                 
 
             "</body></html";
