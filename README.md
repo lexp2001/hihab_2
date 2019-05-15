@@ -1,5 +1,14 @@
-# hihab_2
-Hi:Hab 2da Fase
+# hi:hab 2da Fase
+### Cómo actualizar el código:
+- Entrar en VS Code con las credenciales suministradas.
+- Ubicar yeditar el archivo en el directorio: /home/hihab/api/app
+### Descripción Archivos editables:
+- ../app/calcs: Es el directorio que contiene los archivos que definen las funciones que determinan si una propiedad "califica" y las encargadas de calcular la renta.
+- ../app/models/buildings.js: Archivo de parametrización de la base de datos MongoDB
+- ../app/public/assets: Directorio con todos los recursos gráficos para el HTML/PDF
+- ../app/routes/buildings.js: Implementa los métodos del API para la búsqueda de propiedades y los respectivos cálculos de renta
+- ../app/routes/proposal.js: Implementa el métodp del API para crear el PDF de la propuesta
+
 ## Configuración de Docker Compose:
 ```
 #docker-compose.yml
