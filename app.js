@@ -15,12 +15,31 @@ var proposal = require('./routes/proposal');
 var mongoose = require('mongoose');
 // Use native Node promises
 mongoose.Promise = global.Promise;
-// connect to MongoDB
-//mongoose.connect('mongodb://localhost/todoDeep?ssl=true')
-mongoose.connect("mongodb://db:27017/hi_hab", {useNewUrlParser: true})
-  //.then(() =>  console.log(''))
-  .catch((err) => console.error(err));
 
+const options = {
+  autoIndex: false, // Don't build indexes
+  reconnectTries: 30, // Retry up to 30 times
+  reconnectInterval: 500, // Reconnect every 500ms
+  poolSize: 10, // Maintain up to 10 socket connections
+  bufferMaxEntries: 0,
+  user:"root",
+  pass:"TakkSkalDuHa2001",
+  useNewUrlParser: true,
+  dbName:"hi_hab"
+}
+// connect to MongoDB
+
+const connectWithRetry = () => {
+  console.log('MongoDB connection with retry')
+  mongoose.connect("mongodb://142.44.163.118:27017/admin", options).then(()=>{
+    console.log('MongoDB is connected')
+  }).catch(err=>{
+    console.log('MongoDB connection unsuccessful, retry after 5 seconds.')
+    setTimeout(connectWithRetry, 5000)
+  })
+  }
+  
+  connectWithRetry()
 
 var app = express();
 
