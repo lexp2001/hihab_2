@@ -46,17 +46,21 @@ git push
 ```
 ### Configuración de Docker Compose:
 ```
-#docker-compose.yml
 version: '3.5'
 services:
-  db: # Mongo Database
-    image: mongo:latest
+
+  db:
+    image: 'mongo:4.0'
     restart: always
     container_name: mongo_hihab_dev
     volumes:
       - './data/db:/data/db'
-    ports: 
-      - "27017:27017"
+    ports:
+      - '27017:27017'
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: pass
+      MONGO_INITDB_DATABASE: 'admin'
 
   express_qa: #QA API for testing
     tty: true 
@@ -66,14 +70,8 @@ services:
       context: './app'
       dockerfile: Dockerfile
     environment:
-      - PORT=3000
-      - NODE_ENV=development
-      - DATABASE_URL=mongodb://db:27017/hi_hab
-
-      - SKIP_DB_WAIT=0
-      - SKIP_DB_MIGRATION=0
-      - SKIP_NPM_INSTALL=0
-      - SKIP_BOWER_INSTALL=0
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: pass
     volumes:
     - './proposals:/usr/src/app/public/proposals'
     ports:
@@ -87,14 +85,8 @@ services:
       context: './app'
       dockerfile: Dockerfile
     environment:
-      - PORT=3000
-      - NODE_ENV=development
-      - DATABASE_URL=mongodb://db:27017/hi_hab
-
-      - SKIP_DB_WAIT=0
-      - SKIP_DB_MIGRATION=0
-      - SKIP_NPM_INSTALL=0
-      - SKIP_BOWER_INSTALL=0
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: pass
     volumes:
     - './proposals:/usr/src/app/public/proposals'
     ports:
