@@ -120,10 +120,7 @@ router.post('/search', function(req, res, next) {
                 alcaldia: item.alcaldia,
                 calle: item.calle,
                 colonia: item.colonia,
-                numero: item.no_externo,
-                keyArray: keyArray,
-                streetXArray: streetXArray,
-                test: weightArray
+                numero: item.no_externo
             };
 
             // Is lead?
