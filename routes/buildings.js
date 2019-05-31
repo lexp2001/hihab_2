@@ -92,9 +92,19 @@ router.post('/search', function(req, res, next) {
             };
 
             // Provides more weight to the street
+            f = false; // f is true if any key match with the street
             for (k of streetXArray) {
-                i.calle.includes(k)     ? tm+=20 : nm++; // Match 'calle'
+                if ( !isNaN(Number(k)) || k.length > 2 ) {
+                    if ( i.calle.includes(k) ) {
+                        tm+=20; 
+                        f=true; // One match at least
+                    } else {
+                        nm++;
+                    }
+                }
             };
+            // If street not match force tm to zero to prevent wrongs matches
+            if (!f) tm = 0;
 
             weightArray.push({tm: tm, nm: nm, item: i});
         };
